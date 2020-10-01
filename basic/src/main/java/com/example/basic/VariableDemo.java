@@ -1,5 +1,8 @@
 package com.example.basic;
 
+/**
+ * 变量demo
+ */
 public class VariableDemo {
     public static void main(String[] args) {
         //定义字节型变量

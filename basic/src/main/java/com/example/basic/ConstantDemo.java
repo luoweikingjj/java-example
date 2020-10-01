@@ -1,5 +1,8 @@
 package com.example.basic;
 
+/**
+ * 常量demo
+ */
 public class ConstantDemo {
     public static void main(String[] args) {
         //输出整数常量

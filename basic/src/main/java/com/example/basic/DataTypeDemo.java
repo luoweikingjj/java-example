@@ -1,5 +1,8 @@
 package com.example.basic;
 
+/**
+ * 数据类型转换demo
+ */
 public class DataTypeDemo {
     public static void main(String[] args) {
         auto();
