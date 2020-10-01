@@ -4,6 +4,10 @@ public class Student {
     // 成员变量
     private String name;
     private int age;
+    // 学生的id
+    private int sid;
+    // 类变量，记录学生数量，分配学号
+    public static int numberOfStudent = 0;
 
     public String getName() {
         return name;
@@ -40,5 +44,13 @@ public class Student {
         //局部变量
         String food = "苹果";
         System.out.println("吃" + food);
+    }
+
+    public void show(){
+        System.out.println("Student : name=" + name + ", age=" + age + ", sid=" + sid);
+    }
+
+    public static void showNum() {
+        System.out.println("num:" + numberOfStudent);
     }
 }
