@@ -1,8 +1,12 @@
 package com.example.web.jdbcdemo;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import javax.sql.DataSource;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 public class JDBCDemo {
     public static void main(String[] args) {
@@ -11,7 +15,9 @@ public class JDBCDemo {
         // resultSetDemo();
         // preparedStatementDemo();
         // transactionDemo();
-        c3p0Demo();
+        // c3p0Demo();
+        // druidDemo();
+        druidDemo1();
     }
 
     /**
@@ -199,6 +205,46 @@ public class JDBCDemo {
                 if (i == 5) {
                     connection.close();
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 数据库连接池-druid
+     */
+    private static void druidDemo() {
+        // 1. 导入jar包
+        // 2. 定义配置文件
+        Properties properties = new Properties();
+        InputStream resourceAsStream = JDBCDemo.class.getClassLoader().getResourceAsStream("druid.properties");
+        try {
+            properties.load(resourceAsStream);
+            DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
+
+            for (int i = 1; i <= 11; i++) { // 配置的线程池最多10个
+                Connection connection = dataSource.getConnection();
+                System.out.println(i + ":" + connection);
+                if (i == 5) {
+                    connection.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void druidDemo1() {
+        try {
+            Connection connection = JDBCDruidUtils.getConnection();
+            String sql = "select * from account";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                double balance = resultSet.getDouble("balance");
+                System.out.println(id + "|" + balance);
             }
         } catch (SQLException e) {
             e.printStackTrace();
