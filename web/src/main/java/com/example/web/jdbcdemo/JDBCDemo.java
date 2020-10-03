@@ -5,12 +5,13 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.sql.*;
 
 public class JDBCDemo {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         // test();
         // practice();
         // resultSetDemo();
         // preparedStatementDemo();
-        transactionDemo();
+        // transactionDemo();
+        c3p0Demo();
     }
 
     /**
@@ -182,6 +183,25 @@ public class JDBCDemo {
         } finally {
             JDBCUtils.close(preparedStatement1, connection);
             JDBCUtils.close(preparedStatement2, null);
+        }
+    }
+
+    /**
+     * 数据库连接池-c3p0
+     */
+    private static void c3p0Demo() {
+        try {
+            // ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
+            ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource("otherc3p0");
+            for (int i = 1; i <= 8; i++) { // 配置的线程池最多8个
+                Connection connection = comboPooledDataSource.getConnection();
+                System.out.println(i + ":" + connection);
+                if (i == 5) {
+                    connection.close();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
