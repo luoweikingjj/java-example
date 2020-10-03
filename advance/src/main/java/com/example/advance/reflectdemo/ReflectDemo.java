@@ -15,7 +15,7 @@ public class ReflectDemo {
 
     private static void getConstructorDemo() {
         try {
-            Class<?> aClass = Class.forName("com.demo.advance.reflectdemo.Person");
+            Class<?> aClass = Class.forName("com.demo.advance.com.example.web.reflectdemo.Person");
 
             Constructor<?>[] constructors = aClass.getConstructors();
             System.out.println(Arrays.toString(constructors));
@@ -43,7 +43,7 @@ public class ReflectDemo {
 
     private static void getMethodDemo() {
         try {
-            Class<?> aClass = Class.forName("com.demo.advance.reflectdemo.Person");
+            Class<?> aClass = Class.forName("com.demo.advance.com.example.web.reflectdemo.Person");
 
             // 获取 public 的 method
             Method[] methods = aClass.getMethods();
@@ -78,7 +78,7 @@ public class ReflectDemo {
 
     private static void getFieldDemo() {
         try {
-            Class<?> aClass = Class.forName("com.demo.advance.reflectdemo.Person");
+            Class<?> aClass = Class.forName("com.demo.advance.com.example.web.reflectdemo.Person");
 
             // 获取 public 的 field
             Field[] fields = aClass.getFields();
@@ -112,7 +112,7 @@ public class ReflectDemo {
 
     private static void getClassDemo() {
         try {
-            Class<?> aClass = Class.forName("com.demo.advance.reflectdemo.Person");
+            Class<?> aClass = Class.forName("com.demo.advance.com.example.web.reflectdemo.Person");
             System.out.println(aClass);
 
             Class<Person> bClass = Person.class;

@@ -1,4 +1,4 @@
-package junitdemo;
+package com.example.web.junitdemo;
 
 import org.junit.After;
 import org.junit.Assert;
