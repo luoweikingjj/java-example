@@ -72,4 +72,11 @@ public class JDBCDruidUtils {
             }
         }
     }
+
+    /**
+     * 获取连接池方法
+     */
+    public static DataSource getDataSource(){
+        return dataSource;
+    }
 }
