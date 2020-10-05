@@ -5,6 +5,16 @@ public class User {
     private String username;
     private String password;
 
+    private String gender;
+
+    public void setHehe(String gender) {
+        this.gender = gender;
+    }
+
+    public String getHehe(){
+        return gender;
+    }
+
     public int getId() {
         return id;
     }
@@ -35,6 +45,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }
