@@ -40,10 +40,16 @@ public class RequestDemo extends HttpServlet {
         // 获取请求参数
         getParameter(req, resp);
 
+        // 共享数据
+        req.setAttribute("attr_key", "attr_value");
+
         // 转发
         System.out.println("step 1 ....");
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/request_dispatcher_demo");
         requestDispatcher.forward(req, resp);
+
+        // ServletContext
+        System.out.println(req.getServletContext());
     }
 
     @Override
