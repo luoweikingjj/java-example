@@ -30,6 +30,8 @@ public class LoginServlet extends HttpServlet {
         // 验证验证码
         String checkCode = req.getParameter("check_code");
         String checkCodeSession = (String) req.getSession().getAttribute("check_code_session");
+        // 不管是否通过，验证码只能验证一次
+        req.getSession().removeAttribute("check_code_session");
         if (checkCodeSession == null || !checkCodeSession.equalsIgnoreCase(checkCode)) {
             req.setAttribute("req_error", "验证码错误");
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
