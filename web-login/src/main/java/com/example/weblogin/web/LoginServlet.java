@@ -57,6 +57,7 @@ public class LoginServlet extends HttpServlet {
                 //登录成功
                 //存储数据
                 req.setAttribute("user", user);
+                req.getSession().setAttribute("user", user);
                 //转发
                 req.getRequestDispatcher("/successServlet").forward(req, resp);
             }
