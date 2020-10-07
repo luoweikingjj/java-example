@@ -26,6 +26,10 @@ public class ServletDownloadDemo extends HttpServlet {
         // 3.1 设置向应用类型:content-type
         String mimeType = servletContext.getMimeType(filename);
         resp.setHeader("content-type", mimeType);
+        // 文件名包含中文处理
+        String userAgent = req.getHeader("UserAgent");
+        userAgent = (userAgent == null) ? "" : userAgent;
+        filename = DownloadUtils.getFileName(userAgent, filename);
         // 3.2 设置响应头打开方式:content-disposition
         resp.setHeader("content-disposition", "attachment;filename="+filename);
         // 4. 将输入流的数据写出到输出流中
