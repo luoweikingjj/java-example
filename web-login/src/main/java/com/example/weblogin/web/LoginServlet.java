@@ -27,31 +27,37 @@ public class LoginServlet extends HttpServlet {
 //        loginUser.setUsername(username);
 //        loginUser.setPassword(password);
 
-        // BeanUtils工具类，简化数据封装
-        Map<String, String[]> parameterMap = req.getParameterMap();
-        User loginUser = new User();
-        try {
-            BeanUtils.populate(loginUser, parameterMap);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
-        //4.调用UserDao的login方法
-        UserDao userDao = new UserDao();
-        User user = userDao.login(loginUser);
-
-        //5.判断user
-        if (user == null) {
-            //登录失败
-            req.getRequestDispatcher("/failServlet").forward(req, resp);
+        // 验证验证码
+        String checkCode = req.getParameter("check_code");
+        String checkCodeSession = (String) req.getSession().getAttribute("check_code_session");
+        if (checkCodeSession == null || !checkCodeSession.equalsIgnoreCase(checkCode)) {
+            req.setAttribute("req_error", "验证码错误");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         } else {
-            //登录成功
-            //存储数据
-            req.setAttribute("user", user);
-            //转发
-            req.getRequestDispatcher("/successServlet").forward(req, resp);
+            // BeanUtils工具类，简化数据封装
+            Map<String, String[]> parameterMap = req.getParameterMap();
+            User loginUser = new User();
+            try {
+                BeanUtils.populate(loginUser, parameterMap);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+            //4.调用UserDao的login方法
+            UserDao userDao = new UserDao();
+            User user = userDao.login(loginUser);
+
+            //5.判断user
+            if (user == null) {
+                //登录失败
+                req.getRequestDispatcher("/failServlet").forward(req, resp);
+            } else {
+                //登录成功
+                //存储数据
+                req.setAttribute("user", user);
+                //转发
+                req.getRequestDispatcher("/successServlet").forward(req, resp);
+            }
         }
     }
 
